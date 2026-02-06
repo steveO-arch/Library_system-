@@ -1,85 +1,56 @@
-# Library_system
-library system
+Library System
+An Online Library Management System built with Object-Oriented Programming (C++).
 
-Online Library Management System
+This project demonstrates OOP concepts in a real-world scenario — managing books, users, and the borrowing/returning process. It enforces rules automatically to keep library data consistent.
 
-Using Object-Oriented Programming (C++)
+Introduction
+The system models a library by handling books and users.
+Users can borrow and return books, while the library ensures consistency (no double borrowing, no invalid returns).
 
-1. Introduction
+The main goal: show how encapsulation, abstraction, modularity, and composition can be applied in C++ to build clean, maintainable, and testable code.
 
-This project implements an Online Library Management System using Object-Oriented Programming (OOP) principles in C++. The system models a real-world library by managing books and users, allowing users to borrow and return books while maintaining the integrity of library data.
-
-The goal of the project is to demonstrate practical understanding of OOP concepts such as encapsulation, abstraction, and modular design, while producing readable, maintainable, and testable code.
-
-2. System Design and OOP Principles
-2.1 Class Overview
-
-The system is composed of three main classes:
+System Design
+The project is built around three core classes:
 
 1. Book
+Stores book details (ID, title, author)
 
-Represents a single book in the library.
+Tracks whether it’s borrowed
 
-Responsibilities
-
-Store book details (ID, title, author)
-
-Track whether the book is currently borrowed
-
-Allow borrowing and returning operations
-
-Why this design?
-A book should manage its own state. External classes should not directly modify whether a book is borrowed.
+Handles borrow/return operations itself
 
 2. User
+Stores user info (ID, name)
 
-Represents a library user.
+Keeps track of borrowed books
 
-Responsibilities
-
-Store user information (ID and name)
-
-Track books borrowed by the user
-
-Allow borrowing and returning of books by ID
-
-Why this design?
-Users should be responsible for their own borrowing records. This avoids tight coupling with the library’s internal data structures.
+Manages its own borrowing records
 
 3. Library
+Holds collections of books and users
 
-Acts as the central controller of the system.
+Registers users, adds/removes books
 
-Responsibilities
+Coordinates borrowing/returning
 
-Store collections of books and users
+Provides search functionality
 
-Register users and add/remove books
+Design choice:  
+The library acts as a mediator, ensuring rules are followed (e.g., no borrowing the same book twice).
 
-Coordinate borrowing and returning actions
+OOP Principles in Action
+Encapsulation - private data, public methods
 
-Provide book search functionality
+Abstraction - simple user-facing operations (borrow, return, search)
 
-Why this design?
-The library acts as a mediator between users and books, ensuring rules are enforced consistently (e.g., a book cannot be borrowed twice).
+Modularity - each class has one clear job
 
-2.2 OOP Principles Applied
+Composition - Library contains Book and User objects
 
-Encapsulation
-All class data members are private and accessed only through public methods.
+No inheritance - kept things simple
 
-Abstraction
-Users of the system interact with high-level operations (borrow, return, search) without knowing internal storage details.
-
-Modularity
-Each class has a single, well-defined responsibility.
-
-Composition
-The Library class contains collections of Book and User objects.
-
-Inheritance was intentionally not used, as it would not add meaningful value for this problem.
-
-3. File Structure
+File Structure
+Code
 library_system/
 │
 ├── Book.h        
@@ -87,69 +58,44 @@ library_system/
 ├── Library.h      
 ├── main.cpp        
 └── test_library.cpp
-
-4. Functionalities Implemented
-
-Add and remove books from the library
+Features
+Add/remove books
 
 Register users
 
-Search for books by title
+Search books by title
 
-Borrow books (with validation)
+Borrow/return books (with validation)
 
-Return books (with validation)
+Prevent invalid operations like:
 
-Prevent invalid operations such as:
+Borrowing non-existent books
 
-Borrowing a non-existent book
+Borrowing already borrowed books
 
-Borrowing an already borrowed book
+Returning books not borrowed by the user
 
-Returning a book not borrowed by the user
+Test Suite
+test_library.cpp covers both positive and negative scenarios:
 
-5. Test Suite Description
+Successful borrow/return
 
-A dedicated test file (test_library.cpp) is provided to validate system behavior.
+Valid user-book interactions
 
-Test Coverage
+Borrowing non-existent books
 
-Positive Scenarios
+Invalid user IDs
 
-Successful book borrowing
+Returning books not borrowed
 
-Successful book returning
+Borrowing the same book twice
 
-Valid user and book interactions
-
-Negative Scenarios
-
-Borrowing a non-existent book
-
-Borrowing with an invalid user ID
-
-Returning a book that was not borrowed
-
-Attempting to borrow the same book twice
-
-Assertions (assert) are used to automatically verify correctness.
-
-6. Compilation and Execution Instructions
-6.1 Compile and Run the Main Program
-g++ main.cpp -o library
+Tests use assert to automatically check correctness.
+If everything is working:  All tests passed successfully.
+How to Run
+Compile & Run Main Program
+-- g++ main.cpp -o library
 ./library
-
-
-This runs a simple demonstration of the system’s functionality.
-
-6.2 Compile and Run the Test Suite
-g++ test_library.cpp -o test_library
+Compile & Run Tests
+--g++ test_library.cpp -o test_library
 ./test_library
-
-
-If all tests pass, the program will output:
-
-All tests passed successfully.
-
-
-Any failure will terminate the program, indicating an error in logic.
